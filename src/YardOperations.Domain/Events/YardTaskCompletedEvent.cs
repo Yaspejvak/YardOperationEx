@@ -8,6 +8,9 @@ public sealed class YardTaskCompletedEvent : IDomainEvent
 
     public YardTaskCompletedEvent(string yardTaskId, string equipmentId)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(yardTaskId);
+        ArgumentException.ThrowIfNullOrWhiteSpace(equipmentId);
+
         YardTaskId = yardTaskId;
         EquipmentId = equipmentId;
         OccurredOnUtc = DateTime.UtcNow;

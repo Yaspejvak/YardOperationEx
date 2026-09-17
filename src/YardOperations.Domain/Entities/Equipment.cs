@@ -10,11 +10,18 @@ public class Equipment
 
     private Equipment()
     {
-        //For EF
-        Id = null!; //only to remove warning for now
+        Id = null!;
     }
+
     public Equipment(string id, EquipmentType type)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(id);
+
+        if (!Enum.IsDefined(type))
+        {
+            throw new ArgumentOutOfRangeException(nameof(type));
+        }
+
         Status = EquipmentStatus.Available;
         Id = id;
         Type = type;
@@ -22,7 +29,7 @@ public class Equipment
 
     public void Reserve()
     {
-        if(Status == EquipmentStatus.Available)
+        if (Status == EquipmentStatus.Available)
         {
             Status = EquipmentStatus.InUse;
         }
@@ -31,9 +38,10 @@ public class Equipment
             throw new InvalidOperationException("Status must be available");
         }
     }
+
     public void Release()
     {
-        if(Status == EquipmentStatus.InUse)
+        if (Status == EquipmentStatus.InUse)
         {
             Status = EquipmentStatus.Available;
         }

@@ -1,18 +1,15 @@
 using YardOperations.Domain.Enums;
+using YardOperations.Domain.Entities;
 
 namespace YardOperations.Domain.Strategies;
-using YardOperations.Domain.Entities;
+
 public class FirstAvailableEquipmentStrategy : IEquipmentAssignmentStrategy
 {
-    // public EquipmentType requiredType { get; private set;}
     public Equipment? SelectEquipment(YardTask task, IReadOnlyList<Equipment> availableEquipment)
     {
-        // switch (task.TaskType)
-        // {
-        //     case YardTaskType.Lift: requiredType = EquipmentType.Crane; break;
-        //     case YardTaskType.Move: requiredType = EquipmentType.Forklift; break;
-        //     case YardTaskType.Inspect: requiredType = EquipmentType.ReachStacker; break;
-        // }
+        ArgumentNullException.ThrowIfNull(task);
+        ArgumentNullException.ThrowIfNull(availableEquipment);
+
         var requiredEquipmentType = task.TaskType switch
         {
             YardTaskType.Lift => EquipmentType.Crane,
@@ -20,6 +17,7 @@ public class FirstAvailableEquipmentStrategy : IEquipmentAssignmentStrategy
             YardTaskType.Inspect => EquipmentType.ReachStacker,
             _ => throw new ArgumentOutOfRangeException(nameof(task.TaskType))
         };
+
         return availableEquipment.FirstOrDefault(equipment => equipment.Type == requiredEquipmentType);
     }
 }
