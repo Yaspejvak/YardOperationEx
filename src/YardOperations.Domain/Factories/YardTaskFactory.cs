@@ -11,18 +11,6 @@ public static class YardTaskFactory
         YardTaskType taskType,
         int? priority = null)
     {
-        // if (!priority.HasValue)
-        // {
-        //     switch (taskType)
-        //     {
-        //         case YardTaskType.Inspect:
-        //             priority = 5;
-        //             break;
-        //         default:
-        //             priority = 3;
-        //             break;
-        //     }
-        // }
         var resolvedPriority = priority ?? (taskType == YardTaskType.Inspect ? 5 : 3);
         return new YardTask(id, containerId, taskType, resolvedPriority);
     }
