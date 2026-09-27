@@ -14,6 +14,7 @@ public class DomainEventDispatcher : IDomainEventDispatcher
     }
     public Task DispatchAsync(IEnumerable<IDomainEvent> events, CancellationToken ct = default)
     {
+        //check later : where to check cancellation token
        var yardTaskCompletedEvent = events.FirstOrDefault(domainEvent  => domainEvent  is YardTaskCompletedEvent);
        if (yardTaskCompletedEvent == null)
        {
