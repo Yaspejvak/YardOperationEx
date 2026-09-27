@@ -15,8 +15,8 @@ public class YardTaskConfiguration : IEntityTypeConfiguration<YardTask>
         builder.Property(yardTask => yardTask.Priority);
         builder.Property(yardTask => yardTask.Status).HasConversion<string>();
         builder.Property(yardTask => yardTask.AssignedEquipmentId);
-        builder.Ignore(yardTask => yardTask.DomainEvents); //Domains are not saved in DB & will be ignored
-        // we mention it so that EF automatic mapping doesn't happen for Domain Events
-        
+        builder.Ignore(yardTask => yardTask.DomainEvents);
+        /*Domains are not saved in DB & will be ignored
+        we mention it so that EF automatic mapping doesn't happen for Domain Events */
     }
 }

@@ -16,15 +16,17 @@ public class YardTaskRepository : IYardTaskRepository
 
     public async Task<YardTask?> GetByIdAsync(string id, CancellationToken ct = default)
     {
-        //we have async/await because EF might need I/O with DB for finding Entiies 
+        /*we have async/await because EF might need I/O with DB for finding Entiies
+        we write the key(s) in [] to separate it from ct , that is the rule for EF
+        GetByID Is Read + Change */
         return await _dbContext.YardTasks.FindAsync([id], ct);
-        //we write the key(s) in [] to separate it from ct , that is the rule for EF 
     }
 
     public async Task<List<YardTask>> GetAllAsync(CancellationToken ct = default)
     {
 
-        return await _dbContext.YardTasks.ToListAsync(ct); //return result as LIST
+        return await _dbContext.YardTasks.AsNoTracking().ToListAsync(ct);
+        /* AsNoTracking : Won't enter the 'Change Tracking', GetAllAsync is only a READ Query */
 
     }
 

@@ -9,10 +9,9 @@ public class EquipmentConfiguration : IEntityTypeConfiguration<Equipment>
     public void Configure(EntityTypeBuilder<Equipment> builder)
     {   
         builder.HasKey(equipment => equipment.Id);
-        builder.Property(equipment => equipment.Type)
-            .HasConversion<string>();
-        builder.Property(equipment => equipment.Status)
-            .HasConversion<string>();
-        
-        }
+        builder.Property(equipment => equipment.Type).HasConversion<string>();
+        builder.Property(equipment => equipment.Status).HasConversion<string>();
+        // builder.Property(equipment => equipment.Id ).HasMaxLength().
+        // builder.Property(equipment => equipment.Id ).ValueGeneratedOnAdd(); //DB duty to handle
+    }
 }
